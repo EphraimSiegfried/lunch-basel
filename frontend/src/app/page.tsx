@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import Image from 'next/image'
+import Link from 'next/link'
 
 type Menu = {
   title: string;
@@ -49,12 +51,17 @@ export default async function Home() {
         <title>Zmittag</title>
       </Head>
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-8 text-center">
-	  Zmittag
-        </h1>
+	<div className='grid grid-cols-3 mb-8'>
+	  <div/>
+	  <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900  text-center justify-center self-center">
+	    Zmittag
+	  </h1>
+	  <Link href="https://github.com/EphraimSiegfried/lunch-basel" className='justify-end self-center justify-self-end'>
+	    <Image src="/github-mark.svg" alt='Github' width='30' height='30' />
+	  </Link>
+	</div>
         {lunchOffers.length === 0 ? (
           <p className="text-center text-gray-500 text-xl">
-            Could not load any lunch offers at the moment. Please try again later.
 	    No menus today!
           </p>
         ) : (
