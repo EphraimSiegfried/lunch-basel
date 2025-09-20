@@ -29,6 +29,10 @@ class CantinaE9(Restaurant):
     name = "Cantina E9"
     url = "https://www.cantina-e9.ch/images/menuplan/menuplan.pdf"
     def fetch_menus(self):
+        today = date.today()
+        # return nothing if it's a weekend
+        if today.weekday() <= 5:
+            return []
         response = requests.get(self.url)
         file_hash = hash(response.content)
         pdf_name = f"{file_hash}.pdf"
@@ -55,6 +59,10 @@ class CantinaE9(Restaurant):
         return menus
 
 def from_compass_group(url):
+    today = date.today()
+    # return nothing if it's a weekend
+    if today.weekday() <= 5:
+        return []
     menus = []
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
