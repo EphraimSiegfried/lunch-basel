@@ -16,7 +16,7 @@ def list_menus(restaurant_name, day):
     global current_day
     if day == "today" and restaurant_name in available_restaurants:
         if restaurant_name in menu_cache and menu_cache[restaurant_name]["last_updated"] == date.today():
-            return menu_cache[restaurant_name]
+            return menu_cache[restaurant_name]["data"]
         restaurant = available_restaurants[restaurant_name]
         menus = restaurant().fetch_menus()
         menus = filter(lambda x: x.date == date.today(), menus)
