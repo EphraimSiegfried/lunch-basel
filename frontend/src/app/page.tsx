@@ -40,7 +40,8 @@ async function getLunchOffers(): Promise<LunchOffer[]> {
 }
 
 export default async function Home() {
-  const lunchOffers = await getLunchOffers();
+  let lunchOffers = await getLunchOffers();
+  lunchOffers = lunchOffers.filter((o) => o.menus.length != 0)
 
   return (
     <div className="bg-gray-100 min-h-screen p-4 sm:p-8 font-sans">
@@ -54,6 +55,7 @@ export default async function Home() {
         {lunchOffers.length === 0 ? (
           <p className="text-center text-gray-500 text-xl">
             Could not load any lunch offers at the moment. Please try again later.
+	    No menus today!
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
