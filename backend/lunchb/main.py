@@ -5,31 +5,29 @@ from dataclasses import asdict
 
 app = Flask(__name__)
 
-rests = {r.name: r for r in Restaurant.__subclasses__()}
-cache = {}
-current_day = date.today()
+available_restaurants = {r.name: r for r in Restaurant.__subclasses__()}
+menu_cache = {}
 @app.route('/list-restaurants', methods = ['GET'])
 def list_restaurants():
-    return [{"name": r.name, "url": r.url} for r in rests.values()]
+    return [{"name": r.name, "url": r.url} for r in available_restaurants.values()]
 
 @app.route('/menu/<string:restaurant_name>/<string:day>', methods = ['GET'])
 def list_menus(restaurant_name, day):
     global current_day
-    if day == "today" and restaurant_name in rests:
-        if restaurant_name in cache and current_day == date.today():
-            return cache[restaurant_name]
-        restaurant = rests[restaurant_name]
+    if day == "today" and restaurant_name in available_restaurants:
+        if restaurant_name in menu_cache and menu_cache[restaurant_name]["last_updated"] == date.today():
+            return menu_cache[restaurant_name]
+        restaurant = available_restaurants[restaurant_name]
         menus = restaurant().fetch_menus()
         menus = filter(lambda x: x.date == date.today(), menus)
         menus = list(map(asdict, menus))
         # update cache
-        cache[restaurant_name] = menus
-        current_day = date.today()
+        menu_cache[restaurant_name] = {"data": menus, "last_updated": date.today()}
         return menus
     abort(404) # TODO: better error handling
 
 def main():
-    app.run(host="0.0.0.0", port="8218")
+    app.run(host="0.0.0.0", port=8218)
 
 if __name__ == '__main__':
     main()
