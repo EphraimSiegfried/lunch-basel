@@ -6,7 +6,7 @@
       sync.enable = true;
     };
   };
-
+  scripts.start.exec = "uv run lunchb";
   enterShell = ''
     . .devenv/state/venv/bin/activate
   '';
