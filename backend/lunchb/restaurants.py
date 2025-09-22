@@ -31,7 +31,7 @@ class CantinaE9(Restaurant):
     def fetch_menus(self):
         today = date.today()
         # return nothing if it's a weekend
-        if today.weekday() <= 5:
+        if today.weekday() >= 5:
             return []
         response = requests.get(self.url)
         file_hash = hash(response.content)
@@ -59,9 +59,8 @@ class CantinaE9(Restaurant):
         return menus
 
 def from_compass_group(url):
-    today = date.today()
     # return nothing if it's a weekend
-    if today.weekday() <= 5:
+    if date.today().weekday() >= 5:
         return []
     menus = []
     response = requests.get(url)
