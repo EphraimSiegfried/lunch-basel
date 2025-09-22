@@ -69,6 +69,7 @@ def from_compass_group(url):
     menu_entries = list(map(lambda x: x.parent.parent, menu_entries))
     for entry in menu_entries:
         menu_title = entry.find("h3").text.strip()
-        ingredients = entry.find("p").text.strip()
+        ingredients = entry.find("p")
+        ingredients = ingredients.text.strip() if ingredients != None else ""
         menus.append(Menu(menu_title, ingredients, date.today()))
     return menus
