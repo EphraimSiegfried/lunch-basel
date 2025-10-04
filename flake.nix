@@ -23,7 +23,6 @@
           ...
         }:
         let
-          # Build packages within the NixOS module context
           lunchf = pkgs.callPackage ./lunchf/package.nix { };
           lunchb = pkgs.callPackage ./lunchb/package.nix { };
         in
