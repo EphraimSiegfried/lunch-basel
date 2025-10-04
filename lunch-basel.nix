@@ -1,15 +1,14 @@
 {
   lib,
   config,
-  packages,
   ...
 }:
 with lib;
 let
   name = "lunch-basel";
   cfg = config.services.${name};
-  lunchf = packages.lunchf;
-  lunchb = packages.lunchb;
+  lunchf = pkgs.callPackage ./lunchf/package.nix { };
+  lunchb = pkgs.callPackage ./lunchb/package.nix { };
 in
 {
   options.services.hello = {
