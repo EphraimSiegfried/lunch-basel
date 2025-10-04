@@ -5,16 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-  "beautifulsoup4>=4.13.5",
+  "beautifulsoup4>=4.13.4",
   "flask>=3.1.2",
   "gunicorn>=23.0.0",
   "pypdf>=6.0.0",
-  "requests>=2.32.5",
+  "requests>=2.32.4",
 ]
+license-files = []
 
 [project.scripts]
 lunchb = "lunchb.main:main"
 
 [build-system]
-requires = ["setuptools", "wheel", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
+requires = ["uv_build"]
+build-backend = "uv_build"

@@ -33,6 +33,8 @@ class CantinaE9(Restaurant):
         # return nothing if it's a weekend
         if today.weekday() >= 5:
             return []
+
+        # fetch pdf and set up parser object
         response = requests.get(self.url)
         file_hash = hash(response.content)
         pdf_name = f"{file_hash}.pdf"
@@ -40,21 +42,24 @@ class CantinaE9(Restaurant):
             file.write(response.content)
         pdf_reader = PdfReader(pdf_name)
         page = pdf_reader.pages[0]
-        entries = page.extract_text().splitlines()
-        # TODO: Better parsing
-        entries = filter(lambda x: x != ', ' and not x.isspace() and "(kein Menüsalat)" not in x, entries)
-        entries = map(lambda x: x.strip(), entries)
-        entries = list(entries)[3:-6]
-        entries = list(batched(entries, n=2))
 
-        today = date.today()
-        current_d = today - timedelta(days=today.weekday())
-
+        # extract text
         menus = []
-        for ((m1, i1), (m2, i2)) in batched(entries, n=2):
-            menus.append(Menu(m1, i1, current_d))
-            menus.append(Menu(m2, i2, current_d))
-            current_d += timedelta(days=1)
+        print(page.extract_text())
+
+        # def v1(text,cm,tm,font_dict,font_size):
+        #     y = tm[5]
+        #     x = tm[4]
+        #     if 350 < y < 420 :
+        #         if 95 < x < 250:
+        #             menus.append(text)
+        #         else:
+        #             menus.append(text)
+        #
+        # page.extract_text(visitor_text=v1)
+        print(menus)
+
+        #clean up
         os.remove(pdf_name)
         return menus
 
@@ -73,3 +78,6 @@ def from_compass_group(url):
         ingredients = ingredients.text.strip() if ingredients != None else ""
         menus.append(Menu(menu_title, ingredients, date.today()))
     return menus
+
+if __name__ == "__main__":
+    CantinaE9().fetch_menus()
