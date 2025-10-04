@@ -11,14 +11,19 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
+        pkgs = import nixpkgs { inherit system; };
       in
       {
-        packages.lunchf = pkgs.callPackage ./lunchf/package.nix { };
-        packages.lunchb = pkgs.callPackage ./lunchb/package.nix { };
-        nixosModules.default = { packages, ... }: import ./lunch-basel.nix { inherit packages; };
+        packages = {
+          lunchf = pkgs.callPackage ./lunchf/package.nix { };
+          lunchb = pkgs.callPackage ./lunchb/package.nix { };
+        };
       }
-    );
+    )
+    // {
+      nixosModules = {
+        default = import ./lunch-basel.nix;
+
+      };
+    };
 }
