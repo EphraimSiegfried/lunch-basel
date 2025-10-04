@@ -11,7 +11,7 @@ let
   lunchb = pkgs.callPackage ./lunchb/package.nix { };
 in
 {
-  options.services.hello = {
+  options.services.${name} = {
     enable = mkEnableOption "${name}";
     lunchbPort = mkOption {
       type = types.int;
