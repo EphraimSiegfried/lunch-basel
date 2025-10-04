@@ -18,7 +18,7 @@
       {
         packages.lunchf = pkgs.callPackage ./lunchf/package.nix { };
         packages.lunchb = pkgs.callPackage ./lunchb/package.nix { };
-        nixosModules.lunch-basel = { packages, ... }: import ./lunch-basel.nix { inherit packages; };
+        nixosModules.default = { packages, ... }: import ./lunch-basel.nix { inherit packages; };
       }
     );
 }
