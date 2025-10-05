@@ -3,7 +3,7 @@ services:
   frontend:
     image: lunchf
     build:
-      context: ./frontend/
+      context: ./lunchf
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
@@ -12,7 +12,7 @@ services:
   backend:
     image: lunchb
     build:
-      context: ./backend/
+      context: ./lunchb
       dockerfile: Dockerfile
     ports:
       - "8218:8218"
