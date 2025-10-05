@@ -22,7 +22,9 @@ http://localhost:3000.
 
    ```nix
    modules = [
+       ...
        inputs.lunch-basel.nixosModules.default
+       ...
    ]
    ```
 
@@ -52,6 +54,3 @@ http://localhost:3000.
 To add a restaurant you only have to write a class which inherits from the
 Restaurant class and write all it's methods
 [here](./backend/lunchb/restaurants.py).
-
-```
-```
