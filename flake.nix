@@ -63,6 +63,12 @@
                 Restart = "always";
               };
             };
+            users.users.lunch-basel = {
+              isSystemUser = true;
+              group = "lunch-basel";
+            };
+
+            users.groups.lunch-basel = { };
           };
         };
     };
